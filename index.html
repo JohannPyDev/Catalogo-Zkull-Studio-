@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo Zkull Studio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Encabezado de la tienda -->
+  <header class="header">
+    <div class="logo">ZKULL STUDIO</div>
+  </header>
+
+  <!-- Grilla principal de productos -->
+  <main class="grid-productos" id="gridProductos"></main>
+
+  <!-- Modal del Producto -->
+  <div id="modalProducto" class="modal">
+    <div class="modal-contenido">
+      <span class="cerrar" onclick="cerrarModal()">&times;</span>
+      
+      <div class="modal-body" id="vistaProducto">
+        <!-- Galería de imágenes -->
+        <div class="galeria-contenedor">
+          <div class="imagen-principal-wrap">
+            <button class="nav-btn prev" onclick="cambiarImagen(-1)">&#10094;</button>
+            <img id="modalImgPrincipal" src="" alt="Prenda">
+            <button class="nav-btn next" onclick="cambiarImagen(1)">&#10095;</button>
+          </div>
+          <div class="miniaturas" id="modalMiniaturas"></div>
+        </div>
+
+        <!-- Información del Producto -->
+        <div class="modal-info">
+          <h2 id="modalTitulo"></h2>
+          <p class="precio" id="modalPrecio"></p>
+
+          <div id="modal-detalles"></div>
+          
+          <div class="seccion-tallas">
+            <label>Talla:</label>
+            <div class="tallas-opciones" id="modalTallas">
+              <!-- Las tallas se cargan dinámicamente desde JavaScript -->
+            </div>
+          </div>
+
+          <button class="btn-negro" onclick="irAlCheckout()">COMPRAR AHORA</button>
+        </div>
+      </div>
+
+      <!-- Sección de Checkout / Formulario -->
+      <div class="modal-body hidden" id="vistaCheckout">
+        <div class="checkout-form">
+          <h3>Dirección de facturación y envío</h3>
+          <form id="formCheckout" onsubmit="procesarEnvioWhatsApp(event)">
+            <input type="email" id="email" placeholder="Email o número de teléfono móvil" required>
+            
+            <div class="form-row">
+              <input type="text" id="nombre" placeholder="Nombre" required>
+              <input type="text" id="apellidos" placeholder="Apellidos" required>
+            </div>
+
+            <input type="text" id="direccion" placeholder="Dirección (Calle, Carrera, Transversal)" required>
+            <input type="text" id="complemento" placeholder="Casa, apartamento, etc. (opcional)">
+
+            <div class="form-row">
+              <input type="text" id="ciudad" placeholder="Ciudad o municipio" oninput="calcularEnvio()" required>
+              <select id="departamento" onchange="calcularEnvio()" required>
+                <option value="Bogotá">Bogotá D.C.</option>
+                <option value="Amazonas">Amazonas</option>
+                <option value="Antioquia">Antioquia</option>
+                <option value="Meta">Meta</option>
+                <option value="Atlantico">Atlantico</option>
+                <option value="Bolivar">Bolivar</option>
+                <option value="Boyaca">Boyaca</option>
+                <option value="Caldas">Caldas</option>
+                <option value="Santander">Santander</option>
+                <option value="Valle del Cauca">Valle del Cauca</option>
+                <option value="Cundinamarca">Cundinamarca</option>
+                <option value="Otro">Otro Departamento</option>
+              </select>
+            </div>
+
+            <input type="tel" id="telefono" placeholder="Teléfono de contacto" required>
+
+            <button type="submit" class="btn-negro">Continuar con el pago por WhatsApp</button>
+            <button type="button" class="btn-secundario" onclick="volverAProducto()">Volver al producto</button>
+          </form>
+        </div>
+
+        <!-- Resumen del Pedido -->
+        <div class="resumen-pedido">
+          <h4>Resumen de la orden</h4>
+          <div class="resumen-item">
+            <img id="resumenImg" src="" alt="Prenda">
+            <div>
+              <p id="resumenTitulo" class="fw-bold"></p>
+              <p id="resumenTalla" class="text-muted"></p>
+            </div>
+            <span id="resumenPrecioBase"></span>
+          </div>
+          <hr>
+          <div class="resumen-linea">
+            <span>Subtotal:</span>
+            <span id="resumenSubtotal"></span>
+          </div>
+          <div class="resumen-linea">
+            <span>Envío:</span>
+            <span id="resumenEnvio">GRATIS (Bogotá)</span>
+          </div>
+          <hr>
+          <div class="resumen-linea total">
+            <strong>Total:</strong>
+            <strong id="resumenTotal"></strong>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
