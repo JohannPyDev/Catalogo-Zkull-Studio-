@@ -1,5 +1,5 @@
 const NUMERO_WHATSAPP = "573239757710"; 
-const COSTO_ENVIO_NACIONAL = 15000;
+const COSTO_ENVIO_NACIONAL = 25000;
 
 const productos = [
   {
